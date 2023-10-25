@@ -1,0 +1,17 @@
+ -- 10.1 Join table PEOPLE and ADDRESS, but keep only one address information for each person (we don't mind which record we take for each person). 
+    -- i.e., the joined table should have the same number of rows as table PEOPLE
+    
+select p.name,p.id,max(a.address) as address from people p left join address a on p.id=a.id group by name,p.id;
+   
+   
+-- 10.2 Join table PEOPLE and ADDRESS, but ONLY keep the LATEST address information for each person. 
+    -- i.e., the joined table should have the same number of rows as table PEOPLE
+    
+SELECT p.name, p.id, a.address
+FROM people p
+INNER JOIN (
+    SELECT id, MAX(updatedate) as latest_date
+    FROM address
+    GROUP BY id
+) latest_addresses ON p.id = latest_addresses.id
+INNER JOIN address a ON p.id = a.id AND latest_addresses.latest_date = a.updatedate;

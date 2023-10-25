@@ -1,0 +1,47 @@
+--3.1 Select all warehouses.
+
+select*from warehouses;
+
+--3.2 Select all boxes with a value larger than $150.
+
+select*from boxes where value>150;
+
+#3.3 Select all distinct contents in all the boxes.
+
+select distinct(contents) from boxes;
+
+#3.4 Select the average value of all the boxes.
+
+select avg(value) from boxes;
+
+#3.5 Select the warehouse code and the average value of the boxes in each warehouse.
+
+select avg(value) as "Avg Value",code from boxes group by value,code;
+
+#3.6 Same as previous exercise, but select only those warehouses where the average value of the boxes is greater than 150.
+
+select avg(value) as "Avg_Value",code from boxes where value>150 group by value,code; 
+
+#3.7 Select the code of each box, along with the name of the city the box is located in.
+
+select b.code,w.location from warehouses w inner  join boxes b on b.warehouse=w.code;
+
+
+#3.8 Select the warehouse codes, along with the number of boxes in each warehouse. 
+
+select w.code,w.capacity from boxes b inner join warehouses w on b.warehouse=w.code;
+
+
+#3.10 Select the codes of all the boxes located in Chicago.
+
+select b.code,w.location from warehouses w inner join boxes b on b.warehouse=w.code where location="chicago";
+
+
+#3.11 Create a new warehouse in New York with a capacity for 3 boxes.
+
+insert into warehouses(code,location,capacity)values(6,'New York', 3);
+
+#3.12 Create a new box, with code "H5RT", containing "Papers" with a value of $200, and located in warehouse 2.
+
+insert into boxes values("H5RT","Papers",200,2);
+
